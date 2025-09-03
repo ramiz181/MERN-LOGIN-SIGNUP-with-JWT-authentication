@@ -31,7 +31,7 @@ const register = async (req, res) => {
             password: hashed
         })
 
-        res.status(201).json({ message: "User successfully created..." })
+        res.status(400).json({ message: "User successfully created..." })
 
         // bcrypt.genSalt(saltRounds, function (err, salt) {
         //     bcrypt.hash(password, salt, function (err, hash) {
@@ -41,7 +41,7 @@ const register = async (req, res) => {
         // });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
 
         res.status(500).json({ message: 'Error registering user' });
     }

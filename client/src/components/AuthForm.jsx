@@ -14,10 +14,16 @@ export default function AuthForm() {
 
     const [message, setMessage] = useState('');
 
+
     const handleChange = (e) => {
         const { name, value } = e.target;
+        console.log("Line 20", formData.username);
         setFormData(prev => ({ ...prev, [name]: value }));
+        // console.log("previous", prev)
     };
+
+    // console.log(formData);
+
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
@@ -32,10 +38,12 @@ export default function AuthForm() {
                 body: JSON.stringify(formData)
 
 
-
             })
+
+            const result = await response.json();
+            setMessage(result.message);
+
             if (response.ok) {
-                const result = await response.json();
 
                 setFormData({
                     username: '',
@@ -43,14 +51,13 @@ export default function AuthForm() {
                     password: ''
                 });
 
-                // console.log(result);
+                // console.log(response.message);
 
-                setIsLogin(true);
-                setMessage(result.message);
+                // setIsLogin(true);
             }
 
         } catch (error) {
-            console.log("Error", error);
+            // console.log("Error", error);
             setMessage(error.message);
 
         }
@@ -76,10 +83,11 @@ export default function AuthForm() {
                     password: formData.password
                 })
             })
-
+            const result = await response.json();
+            setMessage(result.message);
+            x
             if (response.ok) {
 
-                const result = await response.json();
                 setFormData({
                     username: '',
                     email: '',
@@ -90,17 +98,14 @@ export default function AuthForm() {
 
                 navigate('/');
 
-
-
                 // console.log(result);
 
-                setMessage(result.message);
             }
 
 
         } catch (error) {
 
-            console.log(error);
+            // console.log(error);
             setMessage(error.message)
         }
 
@@ -122,7 +127,7 @@ export default function AuthForm() {
                                 name="username"
                                 value={formData.username}
                                 onChange={handleChange}
-                                required
+                                // required
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
@@ -135,7 +140,7 @@ export default function AuthForm() {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            required
+                            // required
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -147,7 +152,7 @@ export default function AuthForm() {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            required
+                            // required
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
